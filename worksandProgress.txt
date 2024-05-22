@@ -1,0 +1,9 @@
+For project
+
+Yingdi su - Grafana
+Sethupathi - Postgresql
+Kuzhalogi - Streamlit, ML model
+Agnes - Airflow
+Ravi - FastAPI
+
+
