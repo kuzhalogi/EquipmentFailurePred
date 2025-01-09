@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from equipfailpred import FEATURES
-from equipfailpred.inference import make_predictions
+from equipfailpred.inference import make_predictions, selective_predict
 from utils import *
 from models import ToPred, FetchPred
 from dbcon import *
@@ -13,12 +13,14 @@ df = pd.DataFrame
 @app.post("/predict")
 async def makePredictions(data: ToPred) :
     df = to_df(data.df)
+    print(df)
     result = make_predictions(df[FEATURES])
+    print(result)
     pred = ar_tostr(result)
     final_df = df[COLM_ORDER].copy()
     final_df['Predictions'] = result        
-    current_date = datetime.date.today()
-    final_df['date'] = current_date.strftime("%Y-%m-%d")  
+    current_date = datetime.datetime.now()
+    final_df['date'] = current_date.strftime("%Y-%m-%d %H:%M:%S")   
     final_df['source'] = data.source
     
     final_df = final_df.rename(columns={
@@ -43,11 +45,11 @@ async def makePredictions(data: ToPred) :
 
 @app.post("/past-predictions")
 async def get_data(data: FetchPred):
-    print(f"recived{data.from_date}|{data.to_date}|{data.source}")
+    print(f"recived{data.from_datetime}|{data.to_datetime}|{data.source}")
     query=f"""SELECT *
             FROM prediction
-            WHERE date >= '{data.from_date}' -- From Date
-            AND date <= '{data.to_date}' -- To Date
+            WHERE date >= '{data.from_datetime}' -- From Date
+            AND date <= '{data.to_datetime}' -- To Date
             AND source = '{data.source}';
             """
     data_from_table = pd.read_sql(query, engine)

@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class FetchPred(BaseModel):
-    from_date: str
-    to_date: str
+    from_datetime: str
+    to_datetime: str
     source: str
 
 

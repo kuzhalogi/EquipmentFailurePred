@@ -64,5 +64,6 @@ def callmodel(df):
         st.success("Done!")
         return result
     else:
-        st.error("Failed to make prediction. Please try again.")
+        status_code = response.status_code
+        st.error(f"Failed to make prediction. Please try again.{status_code}")
         return 'Failed!'
