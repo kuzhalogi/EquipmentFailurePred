@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev
 # Welcome to Great Expectations! Always know what to expect from your data.
 #
 # Here you can define datasources, batch kwargs generators, integrations and
@@ -12,13 +8,12 @@
 
 # config_version refers to the syntactic version of this config file, and is used in maintaining backwards compatibility
 # It is auto-generated and usually does not need to be changed.
-<<<<<<< HEAD
 config_version: 3.0
 
 # Datasources tell Great Expectations where your data lives and how to get it.
 # Read more at https://docs.greatexpectations.io/docs/guides/connecting_to_your_data/connect_to_data_overview
 datasources:
-  onlyfeatures:
+  milling_machine_data:
     class_name: Datasource
     module_name: great_expectations.datasource
     execution_engine:
@@ -26,16 +21,14 @@ datasources:
       module_name: great_expectations.execution_engine
     data_connectors:
       default_inferred_data_connector_name:
-        name: default_inferred_data_connector_name
         class_name: InferredAssetFilesystemDataConnector
         module_name: great_expectations.datasource.data_connector
-        base_directory: /home/kuzhalogi/dsp_project/data
+        base_directory: ../raw-data
         default_regex:
           group_names:
             - data_asset_name
           pattern: (.*)
       default_runtime_data_connector_name:
-        name: default_runtime_data_connector_name
         class_name: RuntimeDataConnector
         module_name: great_expectations.datasource.data_connector
         assets:
@@ -44,12 +37,6 @@ datasources:
             module_name: great_expectations.datasource.data_connector.asset
             batch_identifiers:
               - runtime_batch_identifier_name
-=======
-config_version: 3
-
-# Datasources tell Great Expectations where your data lives and how to get it.
-# Read more at https://docs.greatexpectations.io/docs/guides/connecting_to_your_data/connect_to_data_overview
-datasources: {}
 
 # This config file supports variable substitution which enables: 1) keeping
 # secrets out of source control & 2) environment-based configuration changes
@@ -69,7 +56,6 @@ datasources: {}
 # https://docs.greatexpectations.io/docs/guides/setup/configuring_data_contexts/how_to_configure_credentials
 
 
->>>>>>> origin/dev
 config_variables_file_path: uncommitted/config_variables.yml
 
 # The plugins_directory will be added to your python path for custom modules
@@ -97,14 +83,7 @@ stores:
       base_directory: uncommitted/validations/
 
   evaluation_parameter_store:
-<<<<<<< HEAD
     class_name: EvaluationParameterStore
-=======
-    # Evaluation Parameters enable dynamic expectations. Read more here:
-    # https://docs.greatexpectations.io/docs/reference/evaluation_parameters/
-    class_name: EvaluationParameterStore
-
->>>>>>> origin/dev
   checkpoint_store:
     class_name: CheckpointStore
     store_backend:
@@ -131,7 +110,6 @@ data_docs_sites:
   # profiles from the uncommitted directory. Read more at https://docs.greatexpectations.io/docs/terms/data_docs
   local_site:
     class_name: SiteBuilder
-<<<<<<< HEAD
     show_how_to_buttons: true
     store_backend:
       class_name: TupleFilesystemStoreBackend
@@ -140,31 +118,10 @@ data_docs_sites:
       class_name: DefaultSiteIndexBuilder
 
 anonymous_usage_statistics:
-  data_context_id: d63005a1-e408-4ca5-b487-dca39cbcc606
+  data_context_id: d7cd9c01-45fa-466e-9f3c-27542c28f3e9
   enabled: true
 notebooks:
 include_rendered_content:
   globally: false
   expectation_suite: false
   expectation_validation_result: false
-fluent_datasources:
-  onlyfeatures1:
-    type: pandas
-  onlyfeatures2:
-    type: pandas
-    assets:
-      forequipepred:
-        type: csv
-        filepath_or_buffer: /home/kuzhalogi/dsp_project/data/onlyfeatures.csv
-=======
-    # set to false to hide how-to buttons in Data Docs
-    show_how_to_buttons: true
-    store_backend:
-        class_name: TupleFilesystemStoreBackend
-        base_directory: uncommitted/data_docs/local_site/
-    site_index_builder:
-        class_name: DefaultSiteIndexBuilder
-
-anonymous_usage_statistics:
-  enabled: True
->>>>>>> origin/dev
