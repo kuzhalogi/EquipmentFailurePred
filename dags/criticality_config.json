@@ -1,5 +1,5 @@
 {
-    "high_criticality_expectations" : [
+    "high" : [
         "expect_column_values_to_not_be_null:Product ID",
         "expect_column_values_to_not_be_null:Type",
         "expect_column_values_to_not_be_null:Air temperature [K]",
@@ -14,7 +14,7 @@
         "expect_column_values_to_be_between:Tool wear [min]"
     ],
     
-    "medium_criticality_expectations" : [
+    "medium" : [
         "expect_column_values_to_be_of_type:Air temperature [K]",
         "expect_column_values_to_be_of_type:Process temperature [K]",
         "expect_column_values_to_be_of_type:Rotational speed [rpm]",
@@ -25,7 +25,7 @@
         
     ],
     
-    "low_criticality_expectations" : [
+    "low" : [
         "expect_column_values_to_match_regex:Product ID"
     ]
 }

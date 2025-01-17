@@ -1,5 +1,5 @@
 import os
-from utils import get_criticality, send_teams_alert 
+from utils import load_criticality_config, get_criticality, send_teams_alert 
 import random
 import logging
 import pandas as pd
@@ -11,12 +11,14 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import BranchPythonOperator
 from airflow.exceptions import AirflowSkipException
 
-RAW_DATA='/home/kuzhalogi/WorkSpace/Equipmenfailurepred/raw-data'
+RAW_DATA='/home/kuzhalogi/WorkSpace/EquipmentFailurePred/raw-data'
 SUITE_NAME = "milling_machine_data_quality"
-GOOD_DATA_FOLDER = "/home/kuzhalogi/WorkSpace/Equipmenfailurepred/data/good_data"
-BAD_DATA_FOLDER = "/home/kuzhalogi/WorkSpace/Equipmenfailurepred/data/bad_data"
-DATABASE_CONN_STR = 'postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/data_errors'
+GOOD_DATA_FOLDER = "/home/kuzhalogi/WorkSpace/Equipmentfailurepred/data/good_data"
+BAD_DATA_FOLDER = "/home/kuzhalogi/WorkSpace/Equipmentfailurepred/data/bad_data"
+DATABASE_CONN_STR = 'postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres'
+GREAT_EXPECTATION = '/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx'
 
+criticality_config = load_criticality_config()
 
 validated = []
 error_info = []
@@ -50,11 +52,12 @@ def data_injection():
 
     @task
     def validate_data(file_path: str):
-        context = gx.data_context.DataContext()
+        context = gx.data_context.DataContext(GREAT_EXPECTATION)
         suite = context.get_expectation_suite(SUITE_NAME)
         df = gx.read_csv(file_path)
+        
         results = df.validate(expectation_suite=suite)
-        capsule = {'results': results, 'file_path': file_path, 'errors': []}
+        capsule = {'results': results, 'file_path': file_path, 'errors': [],'stats':[]}
         if not results["success"]:
             for result in results["results"]:
                 if not result["success"]:
@@ -72,22 +75,29 @@ def data_injection():
         valid_rows = total_rows - len(errors)
         invalid_rows = len(errors)
         file_name = os.path.basename(capsule["file_path"])
-
+        error_rate = round((invalid_rows / total_rows) * 100,2)
+        processed_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
         # Save statistics into the database
         engine = sa.create_engine(DATABASE_CONN_STR)
         connection = engine.connect()
         metadata = sa.MetaData()
-        stats_table = sa.Table('data_statistics', metadata, autoload_with=engine)
+        
+        # Reflect the data_validation_summary table from the database
+        stats_table = sa.Table('data_validation_summary', metadata, autoload_with=engine)
+
         stats_data = {
             "file_name": file_name,
             "total_rows": total_rows,
             "valid_rows": valid_rows,
             "invalid_rows": invalid_rows,
-            "error_details": str(errors)  # Or serialize the error info into a JSON blob
+            "error_rate": error_rate,
+            "processed_at": processed_at  
         }
-        connection.execute(stats_table.insert(), stats_data)
-        connection.close()
 
+        connection.execute(stats_table.insert().values(stats_data))
+        connection.close()
+        capsule['stats'].append(stats_data)
 
     @task
     def send_alert(capsule):
@@ -100,17 +110,21 @@ def data_injection():
         # Create a summary of the validation failures
         alert_message = "Data validation failed. Issues detected:\n"
         
-        # Loop through the results to build the alert message based on criticality
-        for result in validation_result["results"]:
-            expectation_type = result["expectation_config"]["expectation_type"]
-            column = result["expectation_config"]["kwargs"]["column"]
-            criticality = get_criticality(expectation_type, column)  # Get criticality based on the column and expectation type
+         # Loop through the results to build the alert message based on criticality
+        for result in validation_result.get("results", []):
+            expectation_config = result.get("expectation_config", {})
+            expectation_type = expectation_config.get("expectation_type", "Unknown")
             
-            if not result["success"]:
-                alert_message += f"\n- Column: {column}, Expectation: {expectation_type}, Criticality: {criticality}, Issues: {result['result']}"
+            # Safely access 'column' key
+            column = expectation_config.get("kwargs", {}).get("column", "Unknown")
+            criticality = get_criticality(expectation_type, column, criticality_config)  # Get criticality based on the column and expectation type
+            
+            if not result.get("success", True):  # Check if validation failed
+                alert_message += f"\n- Column: {column}, Expectation: {expectation_type}, Criticality: {criticality}, Issues: {result.get('result', 'No issues reported')}"
         
-        # Here, you can use your alerting system to send the message (e.g., Microsoft Teams notification)
-        send_teams_alert(alert_message)
+        # If there were any validation issues, send the alert
+        if alert_message.strip() != "Data validation failed. Issues detected:":
+            send_teams_alert(alert_message)  # Send the alert (e.g., via Microsoft Teams)
 
         # Log the message for debugging purposes
         logging.info(f"Alert sent: {alert_message}")

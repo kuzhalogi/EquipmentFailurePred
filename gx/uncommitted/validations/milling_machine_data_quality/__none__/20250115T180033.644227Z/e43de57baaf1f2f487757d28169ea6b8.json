@@ -1,0 +1,1036 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "data_split_6.csv",
+      "data_connector_name": "default_inferred_data_connector_name",
+      "datasource_name": "milling_machine_data"
+    },
+    "batch_markers": {
+      "ge_load_time": "20250115T180033.652683Z",
+      "pandas_data_fingerprint": "f672778e10f71f91e51965427b982718"
+    },
+    "batch_spec": {
+      "path": "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx/../raw-data/data_split_6.csv"
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "data_split_6.csv_milling_machine_data_quality",
+    "expectation_suite_name": "milling_machine_data_quality",
+    "great_expectations_version": "0.18.13",
+    "run_id": {
+      "run_name": null,
+      "run_time": "2025-01-15T19:00:33.644227+01:00"
+    },
+    "validation_id": null,
+    "validation_time": "20250115T180033.667779Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_columns_to_match_ordered_list",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column_list": [
+            "Product ID",
+            "Type",
+            "Air temperature [K]",
+            "Process temperature [K]",
+            "Rotational speed [rpm]",
+            "Torque [Nm]",
+            "Tool wear [min]"
+          ]
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "observed_value": [
+          "Product ID",
+          "Type",
+          "Air temperature [K]",
+          "Process temperature [K]",
+          "Rotational speed [rpm]",
+          "Torque [Nm]",
+          "Tool wear [min]"
+        ]
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Product ID"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Product ID"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Product ID",
+          "regex": "^[LMH]\\d+$"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Type"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_in_set",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Type",
+          "value_set": [
+            "L",
+            "M",
+            "H"
+          ]
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Air temperature [K]",
+          "max_value": 310.0,
+          "min_value": 298.0,
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 43,
+        "missing_percent": 10.238095238095237,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Air temperature [K]"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          }
+        ],
+        "partial_unexpected_index_list": [
+          0,
+          11,
+          15,
+          18,
+          24,
+          45,
+          75,
+          86,
+          92,
+          95,
+          100,
+          109,
+          115,
+          119,
+          126,
+          127,
+          152,
+          153,
+          155,
+          159
+        ],
+        "partial_unexpected_list": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "unexpected_count": 43,
+        "unexpected_percent": 10.238095238095237
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Process temperature [K]",
+          "type_": "float"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [
+          {
+            "count": 8,
+            "value": "308.7"
+          },
+          {
+            "count": 6,
+            "value": "308.6"
+          },
+          {
+            "count": 4,
+            "value": "308.8"
+          },
+          {
+            "count": 2,
+            "value": "308.5"
+          }
+        ],
+        "partial_unexpected_index_list": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "partial_unexpected_list": [
+          "308.6",
+          "308.6",
+          "308.7",
+          "308.7",
+          "308.7",
+          "308.6",
+          "308.6",
+          "308.5",
+          "308.6",
+          "308.6",
+          "308.7",
+          "308.5",
+          "308.7",
+          "308.7",
+          "308.7",
+          "308.8",
+          "308.8",
+          "308.7",
+          "308.8",
+          "308.8"
+        ],
+        "unexpected_count": 420,
+        "unexpected_percent": 100.0,
+        "unexpected_percent_nonmissing": 100.0,
+        "unexpected_percent_total": 100.0
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Process temperature [K]"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Rotational speed [rpm]"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          }
+        ],
+        "partial_unexpected_index_list": [
+          35,
+          37,
+          41,
+          59,
+          63,
+          110,
+          118,
+          124,
+          162,
+          169,
+          170,
+          177,
+          193,
+          205,
+          211,
+          214,
+          220,
+          226,
+          247,
+          258
+        ],
+        "partial_unexpected_list": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "unexpected_count": 37,
+        "unexpected_percent": 8.80952380952381
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Rotational speed [rpm]",
+          "max_value": 10000,
+          "min_value": 500,
+          "mostly": 0.98
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 37,
+        "missing_percent": 8.80952380952381,
+        "partial_unexpected_counts": [
+          {
+            "count": 1,
+            "value": -309.5
+          },
+          {
+            "count": 1,
+            "value": -309.2
+          }
+        ],
+        "partial_unexpected_index_list": [
+          184,
+          269
+        ],
+        "partial_unexpected_list": [
+          -309.2,
+          -309.5
+        ],
+        "unexpected_count": 2,
+        "unexpected_percent": 0.5221932114882507,
+        "unexpected_percent_nonmissing": 0.5221932114882507,
+        "unexpected_percent_total": 0.4761904761904762
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Torque [Nm]",
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          },
+          {
+            "count": 1,
+            "value": null
+          }
+        ],
+        "partial_unexpected_index_list": [
+          15,
+          22,
+          36,
+          62,
+          63,
+          74,
+          81,
+          100,
+          118,
+          120,
+          123,
+          137,
+          144,
+          156,
+          166,
+          168,
+          192,
+          201,
+          203,
+          212
+        ],
+        "partial_unexpected_list": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "unexpected_count": 35,
+        "unexpected_percent": 8.333333333333332
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Torque [Nm]",
+          "max_value": 80,
+          "min_value": 10,
+          "mostly": 0.95
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 35,
+        "missing_percent": 8.333333333333332,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Tool wear [min]",
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "partial_unexpected_counts": [
+          {
+            "count": 20,
+            "value": null
+          }
+        ],
+        "partial_unexpected_index_list": [
+          0,
+          13,
+          19,
+          36,
+          40,
+          60,
+          78,
+          96,
+          100,
+          114,
+          120,
+          135,
+          137,
+          138,
+          154,
+          179,
+          186,
+          204,
+          205,
+          215
+        ],
+        "partial_unexpected_list": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "unexpected_count": 38,
+        "unexpected_percent": 9.047619047619047
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "batch_id": "e43de57baaf1f2f487757d28169ea6b8",
+          "column": "Tool wear [min]",
+          "regex": "error"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 420,
+        "missing_count": 38,
+        "missing_percent": 9.047619047619047,
+        "partial_unexpected_counts": [
+          {
+            "count": 20,
+            "value": "error"
+          }
+        ],
+        "partial_unexpected_index_list": [
+          2,
+          20,
+          22,
+          39,
+          47,
+          51,
+          53,
+          55,
+          64,
+          72,
+          74,
+          75,
+          79,
+          87,
+          88,
+          92,
+          111,
+          130,
+          164,
+          173
+        ],
+        "partial_unexpected_list": [
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error",
+          "error"
+        ],
+        "unexpected_count": 40,
+        "unexpected_percent": 10.471204188481675,
+        "unexpected_percent_nonmissing": 10.471204188481675,
+        "unexpected_percent_total": 9.523809523809524
+      },
+      "success": false
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 16,
+    "success_percent": 75.0,
+    "successful_expectations": 12,
+    "unsuccessful_expectations": 4
+  },
+  "success": false
+}
