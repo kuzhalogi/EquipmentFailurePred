@@ -9,17 +9,25 @@ def assign_error(df, column, value, frac=0.1):
     # Sample a fraction of rows to introduce errors
     sampled_indices = df.sample(frac=frac).index
     
-    # Assign the error value to the selected rows
-    for idx in sampled_indices:
-        df.at[idx, column] = value
+    if isinstance(value, pd.Series):
+        # Assign values from another column
+        sampled_values = value.sample(len(sampled_indices)).values
+        for idx, val in zip(sampled_indices, sampled_values):
+            df.at[idx, column] = val
+    else:
+        # Assign the error value to the selected rows
+        for idx in sampled_indices:
+            df.at[idx, column] = value
     return df
 
-def introduce_data_issues(df, severity_level="high", max_errors_percentage=0.2):
+def introduce_data_issues(original_df, severity_level="high", max_errors_percentage=0.2):
     # Cast columns to 'object' dtype before introducing incompatible data types
+    df = original_df.copy()
     df['Rotational speed [rpm]'] = df['Rotational speed [rpm]'].astype('object')
     df['Air temperature [K]'] = df['Air temperature [K]'].astype('object')
     df['Process temperature [K]'] = df['Process temperature [K]'].astype('object')
-    df['Tool wear [min]'] = df['Tool wear [min]'].astype('object')  # Cast Tool wear to object dtype
+    df['Tool wear [min]'] = df['Tool wear [min]'].astype('object')
+
 
     # Define all possible error functions in a dictionary
     errors = {
@@ -66,7 +74,7 @@ def introduce_data_issues(df, severity_level="high", max_errors_percentage=0.2):
     # Apply a random number of errors within the max_error_percentage limit
     max_errors = int(len(df) * max_errors_percentage)
     error_indices = np.random.choice(df.index, size=max_errors, replace=False)
-    df.loc[error_indices, 'ErrorFlag'] = 'Error'  # Flag errors in a new column
+    # df.loc[error_indices, 'ErrorFlag'] = 'Error'  # Flag errors in a new column
     
     return df
 

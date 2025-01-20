@@ -135,9 +135,6 @@ def data_injection():
         pass
 
 
-
-
-
     t1 = read_data(RAW_DATA)
     t2 = validate_data(t1)
     t3 = save_statistics(t2)
