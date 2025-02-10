@@ -20,8 +20,7 @@ GREAT_EXPECTATION = '/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx'
 
 criticality_config = load_criticality_config()
 
-validated = []
-error_info = []
+validated = [] # hold the validated file numbers, used to avoid revalidating the same file. 
 
 @dag(
     dag_id='data_injection',
@@ -131,15 +130,65 @@ def data_injection():
         
 
     @task
-    def split_and_save_files(capsule,error_info):
-        pass
+    def split_and_save_files(capsule):
+        file_path = capsule["file_path"]
+        errors = capsule["errors"]
+        df = pd.read_csv(file_path)
+
+        # Determine the file name and base directory
+        file_name = os.path.basename(file_path)
+        base_dir = os.path.dirname(file_path)
+        good_data_dir = os.path.join(base_dir, "good_data")
+        bad_data_dir = os.path.join(base_dir, "bad_data")
+
+        # Create directories if they don't exist
+        os.makedirs(good_data_dir, exist_ok=True)
+        os.makedirs(bad_data_dir, exist_ok=True)
+
+        if not errors:
+            # No errors: Move the file to good_data
+            new_path = os.path.join(good_data_dir, file_name)
+            os.rename(file_path, new_path)
+            logging.info(f"No errors found. File moved to {new_path}.")
+        else:
+            # Get indices of rows with errors
+            error_indices = set()
+            for error in errors:
+                unexpected_values = error.get("unexpected_value", [])
+                for value in unexpected_values:
+                    error_indices.update(df.index[df.isin([value]).any(axis=1)].tolist())
+
+            if len(error_indices) == len(df):
+                # All rows have errors: Move the file to bad_data
+                new_path = os.path.join(bad_data_dir, file_name)
+                os.rename(file_path, new_path)
+                logging.info(f"All rows have errors. File moved to {new_path}.")
+            else:
+                # Some rows have errors: Split the file
+                good_rows = df.drop(error_indices)
+                bad_rows = df.loc[error_indices]
+
+                # Save good rows to good_data
+                good_file_path = os.path.join(good_data_dir, file_name)
+                good_rows.to_csv(good_file_path, index=False)
+                logging.info(f"Good rows saved to {good_file_path}.")
+
+                # Save bad rows to bad_data
+                bad_file_name = f"bad_{file_name}"
+                bad_file_path = os.path.join(bad_data_dir, bad_file_name)
+                bad_rows.to_csv(bad_file_path, index=False)
+                logging.info(f"Bad rows saved to {bad_file_path}.")
+
+                # Remove the original file after splitting
+                os.remove(file_path)
+                logging.info(f"Original file {file_name} removed after splitting.")
 
 
     t1 = read_data(RAW_DATA)
     t2 = validate_data(t1)
     t3 = save_statistics(t2)
     t4 = send_alert(t2)
-    t5 = split_and_save_files(t2,error_info)
+    # t5 = split_and_save_files(t2,)
 
     t1 >> t2 >> [t3, t4, t5]
 
