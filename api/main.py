@@ -33,7 +33,6 @@ async def makePredictions(data: ToPred) :
             'Type': 'type',
             'Predictions': 'prediction'
         })
-    print(final_df)
     try:
         final_df.to_sql(TABLE, engine, if_exists='append', index=False)
         message = "Prediction inserted successfully"

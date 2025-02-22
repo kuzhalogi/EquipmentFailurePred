@@ -20,34 +20,27 @@ def assign_error(df, column, value, frac=0.1):
             df.at[idx, column] = value
     return df
 
-def introduce_data_issues(original_df, severity_level="high", max_errors_percentage=0.2):
+def introduce_data_issues(original_df, severity_level, max_errors_percentage=0.2):
     # Cast columns to 'object' dtype before introducing incompatible data types
     df = original_df.copy()
-    df['Rotational speed [rpm]'] = df['Rotational speed [rpm]'].astype('object')
-    df['Air temperature [K]'] = df['Air temperature [K]'].astype('object')
-    df['Process temperature [K]'] = df['Process temperature [K]'].astype('object')
-    df['Tool wear [min]'] = df['Tool wear [min]'].astype('object')
-
-
-    # Define all possible error functions in a dictionary
     errors = {
-        1: lambda df: assign_error(df, 'Tool wear [min]', 'error'),  # High Severity
-        2: lambda df: assign_error(df, 'Process temperature [K]', 'France'),  # High Severity
-        3: lambda df: assign_error(df, 'Product ID', 'InvalidID'),  # High Severity
-        4: lambda df: assign_error(df, 'Rotational speed [rpm]', 'speed_error'),  # High Severity
-        5: lambda df: assign_error(df, 'Air temperature [K]', np.nan),  # Medium Severity
-        6: lambda df: assign_error(df, 'Rotational speed [rpm]', -5000),  # Medium Severity
-        7: lambda df: assign_error(df, 'Torque [Nm]', 1000),  # Medium Severity
-        8: lambda df: assign_error(df, 'Air temperature [K]', 9999),  # Medium Severity
-        9: lambda df: assign_error(df, 'Type', 'InvalidType'),  # Medium Severity
-        10: lambda df: assign_error(df, 'Tool wear [min]', 99999),  # Medium Severity
-        11: lambda df: assign_error(df, 'Product ID', 'XYZ123'),  # Medium Severity
-        12: lambda df: assign_error(df, 'Air temperature [K]', pd.to_numeric(df['Air temperature [K]'], errors='coerce')),  # Medium Severity
-        13: lambda df: assign_error(df, 'Air temperature [K]', df['Process temperature [K]']),  # Medium Severity
-        14: lambda df: assign_error(df, 'Torque [Nm]', None),  # Low Severity
-        15: lambda df: pd.concat([df, df.sample(frac=0.05)]),  # Low Severity (add duplicate rows)
-        16: lambda df: assign_error(df, 'Product ID', None),  # Low Severity
-    }
+    1: lambda df: assign_error(df, 'Tool wear [min]', 99999),  # High Severity (numeric error)
+    2: lambda df: assign_error(df, 'Process temperature [K]', 9999.0),  # High Severity (numeric error)
+    3: lambda df: assign_error(df, 'Product ID', 'InvalidID'),  # High Severity (string error, but ensure it's not NaN)
+    4: lambda df: assign_error(df, 'Rotational speed [rpm]', -5000),  # High Severity (numeric error)
+    5: lambda df: assign_error(df, 'Air temperature [K]', np.nan),  # Medium Severity (null value)
+    6: lambda df: assign_error(df, 'Rotational speed [rpm]', 9999),  # Medium Severity (numeric error)
+    7: lambda df: assign_error(df, 'Torque [Nm]', 1000),  # Medium Severity (numeric error, but within a reasonable range)
+    8: lambda df: assign_error(df, 'Air temperature [K]', 9999.0),  # Medium Severity (numeric error)
+    9: lambda df: assign_error(df, 'Type', 'InvalidType'),  # Medium Severity (string error)
+    10: lambda df: assign_error(df, 'Tool wear [min]', 99999),  # Medium Severity (numeric error)
+    11: lambda df: assign_error(df, 'Product ID', 'XYZ123'),  # Medium Severity (string error)
+    12: lambda df: assign_error(df, 'Air temperature [K]', pd.to_numeric(df['Air temperature [K]'], errors='coerce')),  # Medium Severity (coerce to numeric)
+    13: lambda df: assign_error(df, 'Air temperature [K]', df['Process temperature [K]']),  # Medium Severity (copy from another column)
+    14: lambda df: assign_error(df, 'Torque [Nm]', np.nan),  # Low Severity (null value)
+    15: lambda df: pd.concat([df, df.sample(frac=0.05)]),  # Low Severity (add duplicate rows)
+    16: lambda df: assign_error(df, 'Product ID', 'MissingID'),  # Low Severity (string error, but ensure it's not NaN)
+}
 
     # Choose severity level
     if severity_level == "high":
@@ -95,7 +88,7 @@ def split_and_save_data(df, output_folder, num_files, max_errors_percentage):
         split_df_with_errors = introduce_data_issues(split_df, severity_level, max_errors_percentage)
         
         # Save the split DataFrame to CSV
-        split_df_with_errors.to_csv(os.path.join(output_folder, f'data_split_{i}.csv'), index=False)
+        split_df_with_errors.to_csv(os.path.join(output_folder, f'data{i}.csv'), index=False)
         
 
 if __name__ == "__main__":
@@ -103,6 +96,6 @@ if __name__ == "__main__":
     main_df = pd.read_csv(main_dataset_path)
 
     
-    output_folder = 'raw-data'
+    output_folder = './Data_Feed/raw-data'
     num_files_to_generate = 25
     split_and_save_data(main_df, output_folder, num_files_to_generate, max_errors_percentage=0.2)

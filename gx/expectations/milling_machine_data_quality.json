@@ -1,161 +1,220 @@
-{
-  "data_asset_type": null,
-  "expectation_suite_name": "milling_machine_data_quality",
-  "expectations": [
-    {
-      "expectation_type": "expect_table_columns_to_match_ordered_list",
-      "kwargs": {
-        "column_list": [
-          "Product ID",
-          "Type",
-          "Air temperature [K]",
-          "Process temperature [K]",
-          "Rotational speed [rpm]",
-          "Torque [Nm]",
-          "Tool wear [min]"
-        ]
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Product ID"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_unique",
-      "kwargs": {
-        "column": "Product ID"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_match_regex",
-      "kwargs": {
-        "column": "Product ID",
-        "regex": "^[LMH]\\d+$"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Type"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_in_set",
-      "kwargs": {
-        "column": "Type",
-        "value_set": [
-          "L",
-          "M",
-          "H"
-        ]
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_between",
-      "kwargs": {
-        "column": "Air temperature [K]",
-        "max_value": 310.0,
-        "min_value": 298.0,
-        "mostly": 0.9
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_of_type",
-      "kwargs": {
-        "column": "Process temperature [K]",
-        "type_": "float"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Air temperature [K]"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Rotational speed [rpm]"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_between",
-      "kwargs": {
-        "column": "Rotational speed [rpm]",
-        "max_value": 10000,
-        "min_value": 500,
-        "mostly": 0.98
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Torque [Nm]",
-        "mostly": 0.9
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_be_between",
-      "kwargs": {
-        "column": "Torque [Nm]",
-        "max_value": 80,
-        "min_value": 10,
-        "mostly": 0.95
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Tool wear [min]",
-        "mostly": 0.9
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_be_null",
-      "kwargs": {
-        "column": "Process temperature [K]"
-      },
-      "meta": {}
-    },
-    {
-      "expectation_type": "expect_column_values_to_not_match_regex",
-      "kwargs": {
-        "column": "Tool wear [min]",
-        "regex": "error"
-      },
-      "meta": {}
-    }
-  ],
-  "ge_cloud_id": null,
-  "meta": {
-    "citations": [
+  {
+    "data_asset_type": null,
+    "expectation_suite_name": "milling_machine_data_quality",
+    "expectations": [
       {
-        "batch_request": {
-          "data_asset_name": "data_split_6.csv",
-          "data_connector_name": "default_inferred_data_connector_name",
-          "datasource_name": "milling_machine_data",
-          "limit": 1000
+        "expectation_type": "expect_table_columns_to_match_ordered_list",
+        "kwargs": {
+          "column_list": [
+            "Product ID",
+            "Type",
+            "Air temperature [K]",
+            "Process temperature [K]",
+            "Rotational speed [rpm]",
+            "Torque [Nm]",
+            "Tool wear [min]"
+          ]
         },
-        "citation_date": "2025-01-15T17:50:08.126872Z",
-        "comment": "Created suite added via CLI"
-      }
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Product ID"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "column": "Product ID"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "column": "Product ID",
+          "regex": "^[LMH]\\d+$"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Type"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_in_set",
+        "kwargs": {
+          "column": "Type",
+          "value_set": [
+            "L",
+            "M",
+            "H"
+          ]
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "column": "Air temperature [K]",
+          "max_value": 310.0,
+          "min_value": 298.0,
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+          "column": "Process temperature [K]",
+          "type_": "float"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Air temperature [K]"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Rotational speed [rpm]"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "column": "Rotational speed [rpm]",
+          "max_value": 10000,
+          "min_value": 500,
+          "mostly": 0.98
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Torque [Nm]",
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "column": "Torque [Nm]",
+          "max_value": 80,
+          "min_value": 10,
+          "mostly": 0.95
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Tool wear [min]",
+          "mostly": 0.9
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "column": "Process temperature [K]"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_not_match_regex",
+        "kwargs": {
+          "column": "Tool wear [min]",
+          "regex": "error"
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "column": "Tool wear [min]",
+          "max_value": 260,
+          "min_value": 0
+        },
+        "meta": {}
+      },
+      {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+            "column": "Process temperature [K]",
+            "max_value": 313.8,
+            "min_value": 305.7,
+            "mostly": 0.95
+        },
+        "meta": {}
+    },
+    {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+            "column": "Product ID",
+            "type_": "str"
+        },
+        "meta": {}
+    },
+    {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+            "column": "Type",
+            "type_": "str"
+        },
+        "meta": {}
+    },
+    {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+            "column": "Rotational speed [rpm]",
+            "type_": "int"
+        },
+        "meta": {}
+    },
+    {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+            "column": "Torque [Nm]",
+            "type_": "float"
+        },
+        "meta": {}
+    },
+    {
+        "expectation_type": "expect_column_values_to_be_of_type",
+        "kwargs": {
+            "column": "Tool wear [min]",
+            "type_": "int"
+        },
+        "meta": {}
+    }
     ],
-    "great_expectations_version": "0.18.13"
+    "ge_cloud_id": null,
+    "meta": {
+      "citations": [
+        {
+          "batch_request": {
+            "data_asset_name": "data_split_6.csv",
+            "data_connector_name": "default_inferred_data_connector_name",
+            "datasource_name": "milling_machine_data",
+            "limit": 1000
+          },
+          "citation_date": "2025-01-15T17:50:08.126872Z",
+          "comment": "Created suite added via CLI"
+        }
+      ],
+      "great_expectations_version": "0.18.13"
+    }
   }
-}
