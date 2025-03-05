@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  streamlit:
+    build:
+      context: ./streamlit  # Build from the Streamlit Dockerfile
+    ports:
+      - "8501:8501"
+    networks:
+      - app-network
+    depends_on:
+      - fastapi
+
+  fastapi:
+    build:
+      context: ./fastapi  # Build from the FastAPI Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest  # Use the official Postgres image
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  airflow:
+    image: apache/airflow:2.3.0
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://user:password@postgres/mydb
+    volumes:
+      - airflow_data:/opt/airflow
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:latest  # Use the official Grafana image
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  airflow_data:
+
