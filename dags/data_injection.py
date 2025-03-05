@@ -10,6 +10,7 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import BranchPythonOperator
 from airflow.exceptions import AirflowSkipException
 
+
 processed_files = set()
 
 @dag(
@@ -19,7 +20,6 @@ processed_files = set()
     schedule=timedelta(minutes=5),
     start_date=days_ago(n=0, hour=1)
 )
-
 
 def data_injection():
      # hold the validated file numbers, used to avoid revalidating the same file. 

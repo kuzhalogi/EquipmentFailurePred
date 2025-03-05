@@ -26,6 +26,12 @@ def single_prediction():
     st.write(df)
     if st.button("Predict Single Sample"):
         result = callmodel(df)
+        if result == '1':
+            machine_status = "Fail"
+            st.write(f"{machine_status}")
+        elif result == '0':
+            machine_status = "Pass"
+            st.write(f"{machine_status}")
         final_df = add_prediction_column_to_df(df,result)
         st.write(final_df)
             

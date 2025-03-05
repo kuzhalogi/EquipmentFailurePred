@@ -1,12 +1,11 @@
+import os
+import glob
+from dag_utils import *
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 from airflow.exceptions import AirflowSkipException
-import os
-import requests
-import glob
-import pandas as pd
-from dag_utils import *
+from airflow.operators.python_operator import PythonOperator
+
 
 default_args = {
     'owner': 'airflow',
@@ -23,9 +22,11 @@ dag = DAG(
     catchup=False,
 )
 
+
 good_data = GOOD_DATA_FOLDER
 PROCESSED_FILES = set()
 api_endpoint = API_PREDICT_ENDPOINT
+
 
 def check_for_new_data(**kwargs):
     # Get list of files in the good_data folder
@@ -40,6 +41,7 @@ def check_for_new_data(**kwargs):
     
     # Pass the list of new files to the next task
     kwargs['ti'].xcom_push(key='new_files', value=list(new_files))
+
 
 def make_predictions(**kwargs):
     new_files = kwargs['ti'].xcom_pull(key='new_files', task_ids='check_for_new_data')
@@ -57,6 +59,7 @@ check_for_new_data_task = PythonOperator(
     python_callable=check_for_new_data,
     dag=dag,
 )
+
 
 make_predictions_task = PythonOperator(
     task_id='make_predictions',

@@ -22,13 +22,3 @@ Each Columns:
 2. not be missing
 3. should not be more than
 
-
-Column Name	Data Type	Description
-id	INTEGER	Unique identifier for each record (primary key).
-file_name	TEXT	Name of the file being processed.
-total_rows	INTEGER	Total number of rows in the file.
-valid_rows	INTEGER	Number of rows that passed all validations.
-invalid_rows	INTEGER	Number of rows that failed one or more validations.
-error_rate	FLOAT	Percentage of rows with errors (invalid_rows / total_rows * 100).
-error_details	JSON or TEXT	JSON string summarizing the types and counts of errors (e.g., {"missing_values": 10}).
-processed_at	DATETIME	Timestamp when the file was processed.

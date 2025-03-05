@@ -60,7 +60,8 @@ def predict(X: pd.DataFrame) -> np.ndarray:
     model = joblib.load(MODEL_PATH)
     predictions = model.predict(X)
     predictions = np.around(predictions, 3)
-    return predictions
+    proba = model.predict_proba(X)
+    return predictions, proba
 
 
 def compute_accuracy(y_test: pd.DataFrame, y_pred:pd.DataFrame)-> dict:
