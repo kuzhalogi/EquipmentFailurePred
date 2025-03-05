@@ -1,6 +1,6 @@
 # Equipment Failure Prediction Application
 
-**A scalable machine learning pipeline for on-demand and scheduled predictions, featuring real-time data ingestion, quality validation, and monitoringa—ll powered by Docker and AWS cloud technologies..**
+**A scalable machine learning pipeline for on-demand and scheduled predictions, featuring real-time data ingestion, quality validation, and monitoring all powered by Docker and AWS cloud technologies.**
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -10,15 +10,15 @@
 5. [Project Structure](#project-structure)
 6. [Dataset](#about-the-dataset)
 7. [ML Model](#about-the-machine-learning-model)
-8. [Usage](#usage)
-9. [Installation](Installtion) 
+8. [Installation](Installtion) 
+9. [Usage](#usage)
 10. [Acknowledgments](#acknowledgments)
 
 ## Introduction
 A comprehensive machine learning pipeline designed to:
 - Provide **on-demand predictions** via a user-friendly web interface.
 - Automate **scheduled predictions**  
-- Ingest and validate data quality using **Great Expectations** or **TensorFlow Data Validation**.
+- Ingest and validate data quality using **Great Expectations**.
 - Monitor data quality and model performance in real-time using **Grafana** dashboards.
 - Store predictions and data quality issues in a **PostgreSQL** database.
 
@@ -26,8 +26,9 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
 
 ## Features
 - **User Interface**:
-  - Make single or batch predictions via a Streamlit web app.
+  - Make single ![single](./images/prediction_page.png) or batch predicitons ![batch predictions](./images/prediction_page_cvs.png) via a Streamlit web app.
   - View past predictions with filtering by date and prediction source (web app or scheduled job).
+  ![fetch_data](./images/fetch_data_page.png)
 - **Model API**:
   - Expose the ML model via FastAPI for predictions.
   - Save predictions and used features to the database.
@@ -38,16 +39,20 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
   - Simulate continuous data flow by ingesting files every minute.
   - Validate data quality and raise alerts for issues.
   - Split data into `good_data` and `bad_data` based on quality.
+  ![data_ingestion_job](./images/data_injection_dag_image.png)
 - **Prediction Job**:
   - Automate predictions every 2 minutes using Airflow.
   - Skip execution if no new data is available.
+  ![prediction_job](./images/prediction_job_dag_image.png)
 - **Monitoring Dashboards**:
   - Monitor data quality issues and model performance in real-time using Grafana.
+  ![data_issues_dashboard](./images/validations_through_data_ingestion.png)
   - Set up alerts for critical issues (e.g., all ingested data has errors, model predicting zero).
+  ![data_drift_dashboard](./images/data_drift_prediction_issuses.png)
 
 ## Architecture
-*An overview of data flow*
-![Project Architecture](./overview.drawio.png)
+*Overview of data flow*
+![Project Architecture](./images/overview.drawio.png)
 
 ### How Components Interact:
 - The **Streamlit UI** interacts with the **FastAPI** service to make predictions and retrieve past predictions.
@@ -78,42 +83,7 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
   - GitHub (Repository hosting)
   - Pandas, NumPy, Scikit-learn (Data processing and ML modeling)
 
-## Installation
-```bash
-# Clone the repository
-git clone https://github.com/kuzhalogi/EquipmentFailurePred.git
-cd EquipmentFailurePred
 
-# Create and activate a virtual environment
-python -m venv predapp
-source predapp/bin/activate  # On Windows use `predapp\Scripts\activate`
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up Docker
-docker-compose up -d
-```
-
-## Usage
-
-Running the Web Application
-```bash
-streamlit run app.py
-```
-Making Predictions via API
-```bash
-curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{
-  "feature1": value1,
-  "feature2": value2,
-  "feature3": value3
-}'
-```
-
-Running Airflow Scheduler
-```bash
-airflow scheduler
-```
 ## Project Structure
 ```bash
 equipment-failure-prediction/
@@ -122,7 +92,7 @@ equipment-failure-prediction/
 │── data/                       # contains .CSV file used to create model
 │── Data_Feed/                  # Raw and processed data
 │── dist/                       # installable model
-│── efp/                        # Equipement Failure prediciton Model
+│── equipfailpred/                        # Equipement Failure prediciton Model
 │── gx/                         # Greate Expectation suites 
 │── models/                     # ML models (for preprocessing data)
 │── webapp/                     # Streamlit UI
@@ -175,12 +145,24 @@ S. Matzka, "Explainable Artificial Intelligence for Predictive Maintenance Appli
 In this project, I trained a Random Forest Classifier using the modified dataset described above. The model is designed to predict equipment failure based on the provided features. The training process involved:
 
 ### **Data Preprocessing:** 
- Involes `LableEncoder` and `StandardScaler` from skitlearn.
+ Involes 
+ -  `LableEncoder` from sikitlearn.
+   ```
+  ORDINAL = ['Type']
+  ```
+ - `StandardScaler` from sikitlearn.
+  ```
+  NUMERICAL = ['Air temperature [K]', 
+               'Process temperature [K]', 
+               'Rotational speed [rpm]', 
+               'Torque [Nm]', 
+               'Tool wear [min]']
+  ```
+
 
 ### **Model Training:**
 
 The Random Forest Classifier was chosen for its robustness and ability to handle complex, non-linear relationships in the data.
-
 
 ### **Model Evaluation:**
 
@@ -193,6 +175,21 @@ The model was evaluated using metrics such as accuracy, precision, recall, and A
 - **Recall: 60%** of the actual failures were correctly identified.
 
 - **AUC: The model has an 80%** chance of distinguishing between failure and non-failure cases.
+
+## Limitations
+- The current model predicts only whether a failure occurs or not. It does not identify specific failure modes (e.g., Tool Wear Failure, Heat Dissipation Failure).
+- If multiple failure modes occur simultaneously, the model will not capture this complexity.
+- The dataset may have imbalanced classes, with some failure modes being rare, leading to biased predictions.
+- The model’s performance depends heavily on the quality and relevance of the input features.
+- The current pipeline may not be optimized for handling extremely high-velocity real-time data streams.
+- The model’s predictions may be difficult to interpret for non-technical stakeholders.
+
+## Future Enhancements
+- Extend the model to predict specific failure modes and handle machines with multiple failure modes.
+- Integrate more sophisticated data validation techniques, such as anomaly detection.
+- Implement a pipeline for automated model retraining as new data becomes available.
+- Enhance the monitoring system to provide real-time alerts for specific failure modes.
+
 
 ### **Model Deployment:**
 
@@ -215,18 +212,60 @@ Once installed, you can use the model to make predictions as follows:
 ```
 from equipfailpred.inference import make_predictions
 
-# Example input features
+# Example input features dictionary with units
 features = {
-    "feature1": value1,
-    "feature2": value2,
-    "feature3": value3,
-    # Add more features as needed
+    'Product ID': 'L12345',
+    'Air temperature [K]': 1230,               # Air temperature in Kelvin
+    'Process temperature [K]': 2342,           # Process temperature in Kelvin
+    'Rotational speed [rpm]': 9834,            # Rotational speed in revolutions per minute (rpm)
+    'Torque [Nm]': 234,                        # Torque in Newton-meters (Nm)
+    'Tool wear [min]': 243,                    # Tool wear in minutes (min)
+    'Type': 'L',                               # Type of machine or product
+    
 }
 
 # Make a prediction
 prediction = make_predictions(features)
 print(f"Prediction: {prediction}")
+>>> 'Predictions': 1                             # Predictions (1 for failure, 0 for no failure)
 ```
+## Installation
+```bash
+# Clone the repository
+git clone https://github.com/kuzhalogi/EquipmentFailurePred.git
+cd EquipmentFailurePred
+
+# Create and activate a virtual environment
+python -m venv predapp
+source predapp/bin/activate  # On Windows use `predapp\Scripts\activate`
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up Docker
+docker-compose up -d
+```
+
+## Usage
+
+Running the Web Application
+```bash
+streamlit run app.py
+```
+Making Predictions via API
+```bash
+curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{
+  "feature1": value1,
+  "feature2": value2,
+  "feature3": value3
+}'
+```
+
+Running Airflow Scheduler
+```bash
+airflow scheduler
+```
+
 ## Acknowledgments
 
 I would like to express my gratitude to my professor, [**Alaa BAKHTI**](https://www.linkedin.com/in/alaabakhti/), for providing the initial idea and guidance for this academic project. Their insights and support were instrumental in shaping the direction of this work. While I have expanded and tweaked the project to include additional features and improvements, the foundational concept was inspired by their vision.
