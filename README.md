@@ -35,6 +35,7 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
   - Retrieve past predictions for visualization.
 - **Database**:
   - Store predictions, data quality issues, and ingestion statistics.
+  ![ERD-schema](./images/data_base_schema.png)
 - **Data Ingestion Job**:
   - Simulate continuous data flow by ingesting files every minute.
   - Validate data quality and raise alerts for issues.
