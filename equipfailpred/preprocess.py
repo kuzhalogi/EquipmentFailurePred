@@ -4,11 +4,12 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score
-from equipfailpred import FEATURES, TARGET, NUMERICAL, ORDINAL
-from equipfailpred import SCALER_PATH, MODEL_PATH, LENCODER_PATH
-
+from equipfailpred.model_config import *
  
 def selected_split(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Split data into features and multi-output target.
+    """
     X = data[FEATURES]
     y = data[TARGET]
     X_train, X_test, y_train, y_test = train_test_split(
@@ -17,12 +18,18 @@ def selected_split(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def to_oned(data: pd.DataFrame)-> np.array:
+    """
+    Flatten DataFrame into a 1D array.
+    """
     nparr = np.array(data)
     oneD = nparr.ravel()
     return oneD
 
 
 def scale(data: pd.DataFrame, to_train: bool) -> np.ndarray:
+    """
+    Scale numerical data using StandardScaler.
+    """
     if to_train:
         scaler = StandardScaler()
         fitted_scaler = scaler.fit(data[NUMERICAL])
@@ -35,6 +42,9 @@ def scale(data: pd.DataFrame, to_train: bool) -> np.ndarray:
 
 
 def lencode(data: pd.DataFrame, to_train: bool) -> np.ndarray:
+    """
+    Encode categorical data using LabelEncoder.
+    """
     flaten_data = to_oned(data[ORDINAL])
     if to_train:
         l_encoder = LabelEncoder()
@@ -48,6 +58,9 @@ def lencode(data: pd.DataFrame, to_train: bool) -> np.ndarray:
 
 
 def preprocessor(data: pd.DataFrame, to_train: bool) -> pd.DataFrame:
+    """
+    Preprocess the input data: scale numerical features, encode categorical features.
+    """
     numerical_values = scale(data, to_train)
     categorical_values = lencode(data, to_train)
     scaled_df = pd.DataFrame(numerical_values, columns=NUMERICAL)
@@ -56,15 +69,20 @@ def preprocessor(data: pd.DataFrame, to_train: bool) -> pd.DataFrame:
     return processed_data
 
 
-def predict(X: pd.DataFrame) -> np.ndarray: 
+def predict(X: pd.DataFrame) -> np.ndarray:
+    """
+    Predict using the trained model.
+    """ 
     model = joblib.load(MODEL_PATH)
     predictions = model.predict(X)
-    predictions = np.around(predictions, 3)
     proba = model.predict_proba(X)
     return predictions, proba
 
 
 def compute_accuracy(y_test: pd.DataFrame, y_pred:pd.DataFrame)-> dict:
+    """
+    Compute classification metrics.
+    """
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)

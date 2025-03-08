@@ -1,0 +1,13 @@
+model:
+  model_path: "../models/rfmodel.joblib"
+  scaler_path: "../models/scaler.joblib"
+  lencoder_path: "../models/lencoder.joblib"
+
+features:
+  id: ["Product ID"]
+  numerical: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"]
+  ordinal: ["Type"]
+  target: ['Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']
+  column_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]
+  fetch_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type", "date", "source"]
+  only_features_columns: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]

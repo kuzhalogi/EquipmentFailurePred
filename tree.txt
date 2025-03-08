@@ -1,0 +1,201 @@
+.
+├── api
+│   ├── dbcon.py
+│   ├── __init__.py
+│   ├── main_api.py
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── dbcon.cpython-310.pyc
+│   │   ├── dbcon.cpython-39.pyc
+│   │   ├── enw.cpython-39.pyc
+│   │   ├── main_api.cpython-310.pyc
+│   │   ├── main.cpython-310.pyc
+│   │   ├── main.cpython-39.pyc
+│   │   ├── models.cpython-310.pyc
+│   │   ├── models.cpython-39.pyc
+│   │   ├── newpi.cpython-39.pyc
+│   │   ├── utils.cpython-310.pyc
+│   │   └── utils.cpython-39.pyc
+│   └── utils.py
+├── backuprequirements.txt
+├── csvsplitscript.py
+├── dags
+│   ├── dag_utils.py
+│   ├── data_injection.py
+│   ├── dbhelper.py
+│   ├── prediction.py
+│   └── __pycache__
+│       ├── dag_utils.cpython-310.pyc
+│       ├── data_injection1.cpython-310.pyc
+│       ├── data_injection2.cpython-310.pyc
+│       ├── data_injection.cpython-310.pyc
+│       ├── data_injection_old.cpython-310.pyc
+│       ├── dbhelper.cpython-310.pyc
+│       ├── exp.cpython-310.pyc
+│       ├── prediction.cpython-310.pyc
+│       └── utils.cpython-310.pyc
+├── data
+│   ├── expectations.py
+│   ├── maintenance-copy.csv
+│   ├── maintenance.csv
+│   ├── Milling-machine-ai4i2020.csv
+│   ├── modified.csv
+│   └── onlyfeatures.csv
+├── Data_Feed
+│   ├── bad-data
+│   │   ├── bad_data0.csv
+│   │   ├── bad_data10.csv
+│   │   ├── bad_data13.csv
+│   │   ├── bad_data15.csv
+│   │   ├── bad_data16.csv
+│   │   ├── bad_data17.csv
+│   │   ├── bad_data20.csv
+│   │   ├── bad_data21.csv
+│   │   ├── bad_data22.csv
+│   │   ├── bad_data23.csv
+│   │   ├── bad_data24.csv
+│   │   ├── bad_data3.csv
+│   │   ├── bad_data6.csv
+│   │   ├── bad_data7.csv
+│   │   ├── bad_data8.csv
+│   │   └── bad_data9.csv
+│   ├── good-data
+│   │   ├── good_data0.csv
+│   │   ├── good_data10.csv
+│   │   ├── good_data13.csv
+│   │   ├── good_data15.csv
+│   │   ├── good_data16.csv
+│   │   ├── good_data17.csv
+│   │   ├── good_data20.csv
+│   │   ├── good_data21.csv
+│   │   ├── good_data22.csv
+│   │   ├── good_data23.csv
+│   │   ├── good_data24.csv
+│   │   ├── good_data3.csv
+│   │   ├── good_data6.csv
+│   │   ├── good_data7.csv
+│   │   ├── good_data8.csv
+│   │   └── good_data9.csv
+│   ├── processed_files.txt
+│   └── raw-data
+│       ├── data11.csv
+│       ├── data12.csv
+│       ├── data14.csv
+│       ├── data18.csv
+│       ├── data19.csv
+│       ├── data1.csv
+│       ├── data2.csv
+│       ├── data4.csv
+│       └── data5.csv
+├── dist
+│   ├── equipfailpred-1.0.0.tar.gz
+│   └── equipfailpred-1.0.1.tar.gz
+├── equipfailpred
+│   ├── inference.py
+│   ├── __init__.py
+│   ├── preprocess.py
+│   ├── __pycache__
+│   │   ├── inference.cpython-310.pyc
+│   │   ├── __init__.cpython-310.pyc
+│   │   └── preprocess.cpython-310.pyc
+│   └── train.py
+├── equipfailpred.egg-info
+│   ├── dependency_links.txt
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   └── top_level.txt
+├── gexptation.txt
+├── gx
+│   ├── checkpoints
+│   │   └── my_checkpoint.yml
+│   ├── expectations
+│   │   └── milling_machine_data_quality.json
+│   ├── great_expectations copy.yml
+│   ├── great_expectations.yml
+│   ├── plugins
+│   │   └── custom_data_docs
+│   │       ├── renderers
+│   │       ├── styles
+│   │       │   └── data_docs_custom_styles.css
+│   │       └── views
+│   ├── profilers
+│   └── uncommitted
+│       ├── config_variables.yml
+│       ├── data_docs
+│       │   └── local_site
+│       │       ├── expectations
+│       │       │   └── milling_machine_data_quality.html
+│       │       ├── index.html
+│       │       ├── static
+│       │       │   ├── fonts
+│       │       │   │   └── HKGrotesk
+│       │       │   │       ├── HKGrotesk-BoldItalic.otf
+│       │       │   │       ├── HKGrotesk-Bold.otf
+│       │       │   │       ├── HKGrotesk-Italic.otf
+│       │       │   │       ├── HKGrotesk-LightItalic.otf
+│       │       │   │       ├── HKGrotesk-Light.otf
+│       │       │   │       ├── HKGrotesk-MediumItalic.otf
+│       │       │   │       ├── HKGrotesk-Medium.otf
+│       │       │   │       ├── HKGrotesk-Regular.otf
+│       │       │   │       ├── HKGrotesk-SemiBoldItalic.otf
+│       │       │   │       └── HKGrotesk-SemiBold.otf
+│       │       │   ├── images
+│       │       │   │   ├── favicon.ico
+│       │       │   │   ├── glossary_scroller.gif
+│       │       │   │   ├── iterative-dev-loop.png
+│       │       │   │   ├── logo-long.png
+│       │       │   │   ├── logo-long-vector.svg
+│       │       │   │   ├── short-logo.png
+│       │       │   │   ├── short-logo-vector.svg
+│       │       │   │   └── validation_failed_unexpected_values.gif
+│       │       │   └── styles
+│       │       │       ├── data_docs_custom_styles_template.css
+│       │       │       └── data_docs_default_styles.css
+│       │       └── validations
+│       │           └── milling_machine_data_quality
+│       │               └── __none__
+│       │                   └── 20250115T180033.644227Z
+│       │                       └── e43de57baaf1f2f487757d28169ea6b8.html
+│       ├── datasource_new.ipynb
+│       ├── edit_milling_machine_data_quality.ipynb
+│       └── validations
+│           └── milling_machine_data_quality
+│               └── __none__
+│                   └── 20250115T180033.644227Z
+│                       └── e43de57baaf1f2f487757d28169ea6b8.json
+├── introducte_errors_to_split.py
+├── models
+│   ├── lencoder.joblib
+│   ├── rfmodel.joblib
+│   └── scaler.joblib
+├── new_requirements.txt
+├── notebooks
+│   ├── gexp.ipynb
+│   ├── maintanence-EDA.ipynb
+│   ├── maintanence-modeling.ipynb
+│   ├── modeling.ipynb
+│   ├── readmefile.md
+│   └── validation_results.json
+├── overview.drawio
+├── overview.drawio.png
+├── postgres.txt
+├── psql.sql
+├── README.md
+├── requirements.txt
+├── setup.py
+├── tree.txt
+└── webapp
+    ├── helper.py
+    ├── __init__.py
+    ├── make_pred.py
+    ├── past_prediction.py
+    ├── predapp.py
+    └── __pycache__
+        ├── helper.cpython-310.pyc
+        ├── helper.cpython-39.pyc
+        ├── make_pred.cpython-310.pyc
+        ├── make_pred.cpython-39.pyc
+        ├── past_prediction.cpython-310.pyc
+        └── past_prediction.cpython-39.pyc
+
+43 directories, 155 files

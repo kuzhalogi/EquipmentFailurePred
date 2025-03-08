@@ -1,0 +1,27 @@
+data:
+  data_feed_folder: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed"
+  raw_data_folder: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/raw-data"
+  good_data_folder: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/good-data"
+  bad_data_folder: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/bad-data"
+  processed_file: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/processed_files.txt"
+
+api:
+  predict_endpoint: "${MODEL_API_ENDPOINT}"
+  past_predictions_endpoint: "${DB_API_ENDPOINT}"
+
+webhook:
+  teams_url: "${TEAMS_WEBHOOK_URL}"
+
+monitoring:
+  great_expectation: "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx"
+  suite_name: "milling_machine_data_quality"
+
+database:
+  user: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  host: "${DB_HOST}"
+  port: "${DB_PORT}"
+  name: "${DB_NAME}"
+  driver: "postgresql+psycopg2"
+  prediction_table_name: "prediction"
+  failure_mode_table_name: "failure_modes"

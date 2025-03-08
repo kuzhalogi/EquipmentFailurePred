@@ -1,0 +1,38 @@
+model:
+  model_path: "../models/rfmodel.joblib"
+  scaler_path: "../models/scaler.joblib"
+  lencoder_path: "../models/lencoder.joblib"
+
+data:
+  data_feed_folder: "../Data_Feed"
+  raw_data: "../Data_Feed/raw-data"
+  good_data_folder: "../Data_Feed/good-data"
+  bad_data_folder: "../Data_Feed/bad-data"
+  processed_file: "../Data_Feed/processed_files.txt"
+
+database:
+  user: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  host: "${DB_HOST}"
+  port: "${DB_PORT}"
+  name: "${DB_NAME}"
+
+api:
+  predict_endpoint: "${API_PREDICT_ENDPOINT}"
+  past_predictions_endpoint: "${DB_API_URL}"
+
+webhook:
+  teams_url: "${TEAMS_WEBHOOK_URL}"
+
+monitoring:
+  great_expectation: "../gx"
+  suite_name: "milling_machine_data_quality"
+
+features:
+  id: ["Product ID"]
+  numerical: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"]
+  ordinal: ["Type"]
+  target: ["Target"]
+  column_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]
+  fetch_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type", "date", "source"]
+  all_columns: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]

@@ -3,13 +3,14 @@ import datetime
 import numpy as np
 import pandas as pd
 from io import StringIO
+from api_config import *
 
 
-COLM_ORDER = [
-    "Product ID", "Air temperature [K]", "Process temperature [K]", 
-    "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", 
-    "Type"
-]
+# COLM_ORDER = [
+#     "Product ID", "Air temperature [K]", "Process temperature [K]", 
+#     "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", 
+#     "Type"
+# ]
 
 
 def ar_tostr(data):
@@ -39,7 +40,7 @@ def to_ar(json_str: str):
 
 def format_predictions(df, predictions, probabilities, source):
     """Format predictions DataFrame before inserting into the database."""
-    df = df[COLM_ORDER].copy()
+    df = df[COLUMN_ORDER].copy()
     df['Predictions'] = predictions
     df['failure_probability'] = probabilities[:, 1]  
     current_date = datetime.datetime.now()

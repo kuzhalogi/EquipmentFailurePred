@@ -1,0 +1,20 @@
+
+database:
+  user: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  host: "${DB_HOST}"
+  port: "${DB_PORT}"
+  name: "${DB_NAME}"
+  drive: "postgresql+psycopg2"
+  prediction_table_name: "prediction"
+  failure_mode_table_name: "failure_modes"
+
+
+features:
+  id: ["Product ID"]
+  numerical: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"]
+  ordinal: ["Type"]
+  target: ["Target"]
+  column_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]
+  fetch_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type", "date", "source"]
+  only_features_columns: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]

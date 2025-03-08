@@ -1,8 +1,8 @@
+import logging
 import sqlalchemy as sa
 from datetime import datetime
-import logging
-
-DATABASE_CONN_STR = 'postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres'
+from dag_config import *
+# DATABASE_CONN_STR = 'postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres'
 
 def get_db_connection():
     """

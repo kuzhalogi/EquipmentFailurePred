@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from helper import *
+from webapp_config import COLUMN_ORDER
+
 
 def single_prediction():
     st.title("Prediction Page")
@@ -22,7 +24,7 @@ def single_prediction():
         int(tool_wear),
         type_value]
     
-    df = pd.DataFrame([data],columns=COLNAME)
+    df = pd.DataFrame([data],columns=COLUMN_ORDER)
     st.write(df)
     if st.button("Predict Single Sample"):
         result = callmodel(df)

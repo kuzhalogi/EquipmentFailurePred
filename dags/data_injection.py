@@ -5,6 +5,7 @@ from dbhelper import *
 import logging
 import pandas as pd
 from datetime import datetime, timedelta
+from dag_config import *
 from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import BranchPythonOperator
@@ -148,7 +149,7 @@ def data_injection():
         delete_file(file_path)
 
 
-    t1 = read_data(RAW_DATA)
+    t1 = read_data(RAW_DATA_FOLDER)
     t2 = validate_data(t1)
     t3 = save_statistics(t2)
     t4 = send_alert(t2)

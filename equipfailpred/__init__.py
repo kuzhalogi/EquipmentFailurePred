@@ -5,7 +5,7 @@ NUMERICAL = ['Air temperature [K]',
              'Tool wear [min]']
 ORDINAL = ['Type']
 FEATURES = NUMERICAL + ORDINAL
-TARGET = ['Target']
+TARGET = ['Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']
 
 MODEL_PATH = "../models/rfmodel.joblib"
 SCALER_PATH = "../models/scaler.joblib"

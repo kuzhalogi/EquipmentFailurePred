@@ -5,17 +5,18 @@ import requests
 import pandas as pd
 from datetime import datetime
 import great_expectations as gx
+from dag_config import *
 
 
-DATA_FEED_FOLDER = "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed"
-RAW_DATA = os.path.join(DATA_FEED_FOLDER, "raw-data")
-GOOD_DATA_FOLDER = os.path.join(DATA_FEED_FOLDER, "good-data")
-BAD_DATA_FOLDER = os.path.join(DATA_FEED_FOLDER, "bad-data")
-PROCESSED_FILE='/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/processed_files.txt'
-GREAT_EXPECTATION = '/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx'
-SUITE_NAME = "milling_machine_data_quality"
-TEAMS_WEBHOOK_URL = "https://epitafr.webhook.office.com/webhookb2/42d835c5-6eba-462d-8503-6cc1eb47b5de@3534b3d7-316c-4bc9-9ede-605c860f49d2/IncomingWebhook/82e48edd72164ab89088ef43b68a825c/d347d272-aa92-4186-b646-b83c5739ffe9/V2mwqEiG62A_icb_P65wyiggrIsLpefcSturPhBkyBCEs1"
-API_PREDICT_ENDPOINT = 'http://localhost:8000/predict'
+# DATA_FEED_FOLDER = "/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed"
+# RAW_DATA_FOLDER = os.path.join(DATA_FEED_FOLDER, "raw-data")
+# GOOD_DATA_FOLDER = os.path.join(DATA_FEED_FOLDER, "good-data")
+# BAD_DATA_FOLDER = os.path.join(DATA_FEED_FOLDER, "bad-data")
+# PROCESSED_FILE='/home/kuzhalogi/WorkSpace/EquipmentFailurePred/Data_Feed/processed_files.txt'
+# GREAT_EXPECTATION = '/home/kuzhalogi/WorkSpace/EquipmentFailurePred/gx'
+# SUITE_NAME = "milling_machine_data_quality"
+# TEAMS_WEBHOOK_URL = "https://epitafr.webhook.office.com/webhookb2/42d835c5-6eba-462d-8503-6cc1eb47b5de@3534b3d7-316c-4bc9-9ede-605c860f49d2/IncomingWebhook/82e48edd72164ab89088ef43b68a825c/d347d272-aa92-4186-b646-b83c5739ffe9/V2mwqEiG62A_icb_P65wyiggrIsLpefcSturPhBkyBCEs1"
+# MODEL_API_ENDPOINT = 'http://localhost:8000/predict'
 
 
 def load_validation_suite(fil_path: str):
@@ -198,7 +199,7 @@ def to_str(df)-> str:
 
 def call_to_prediction_api(file_name,df):
     response = requests.post(
-            API_PREDICT_ENDPOINT,
+            MODEL_API_ENDPOINT,
             json={
                 "source": 'scheduler',
                 "df":df}

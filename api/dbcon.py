@@ -1,23 +1,22 @@
-from sqlalchemy import create_engine
 import pandas as pd
-from sqlalchemy import text
-from fastapi import HTTPException
+from sqlalchemy import create_engine
+from api_config import *
 
-COLM_ORDER = ['Product ID', 'Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Type']
+# COLM_ORDER = ['Product ID', 'Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Type']
 
-FETCH_ORDER = COLM_ORDER + ['date','source']
+# FETCH_ORDER = COLM_ORDER + ['date','source']
 
-# postgres Database
-DB_USER = "postgres"
-DB_PASSWORD = "postgres"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-DB_NAME = "postgres"
+# postgres Database 
+# DB_USER = "postgres"
+# DB_PASSWORD = "postgres"
+# DB_HOST = "localhost"
+# DB_PORT = "5432"
+# DB_NAME = "postgres"
 
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-PREDICTION_TABLE = 'prediction'
-FAILURE_MODE_TABLE = 'failure_modes'
+# DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# PREDICTION_TABLE = 'prediction'
+# FAILURE_MODE_TABLE = 'failure_modes'
 DATABASE_ENGINE = create_engine(DATABASE_URL)
 
 

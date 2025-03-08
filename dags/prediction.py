@@ -1,6 +1,7 @@
 import os
 import glob
 from dag_utils import *
+from dag_config import *
 from airflow import DAG
 from airflow.utils.dates import days_ago
 from airflow.exceptions import AirflowSkipException
@@ -23,14 +24,14 @@ dag = DAG(
 )
 
 
-good_data = GOOD_DATA_FOLDER
+# good_data = GOOD_DATA_FOLDER
 PROCESSED_FILES = set()
-api_endpoint = API_PREDICT_ENDPOINT
+# api_endpoint = API_PREDICT_ENDPOINT
 
 
 def check_for_new_data(**kwargs):
     # Get list of files in the good_data folder
-    all_files = set(glob.glob(os.path.join(good_data, '*.csv')))
+    all_files = set(glob.glob(os.path.join(GOOD_DATA_FOLDER, '*.csv')))
     
     # Find new files that haven't been processed yet
     new_files = all_files - PROCESSED_FILES

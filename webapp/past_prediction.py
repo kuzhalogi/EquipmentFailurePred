@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 from datetime import datetime, date, time 
 from helper import *
+from webapp_config import DB_API_ENDPOINT
 
 
 def past_prediction():
@@ -31,7 +32,7 @@ def past_prediction():
                      "to_datetime":to_datetime  ,
                      "source":source_fetch }
         
-        response = requests.post(DB_API_URL,json=pay_load)
+        response = requests.post(DB_API_ENDPOINT,json=pay_load)
         
         if response.status_code == 200:
             result = response.json()['data']

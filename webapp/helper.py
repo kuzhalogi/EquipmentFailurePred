@@ -4,13 +4,14 @@ import pandas as pd
 import numpy as np
 import requests
 import json
+from webapp_config import MODEL_API_ENDPOINT
 
 
-ID = ['Product ID']
-FEATURES = ['Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Type']
-COLNAME = ID + FEATURES
-MODEL_API_URL = "http://127.0.0.1:8000/predict"
-DB_API_URL = "http://127.0.0.1:8000/past-predictions"
+# ID = ['Product ID']
+# FEATURES = ['Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Type']
+# COLNAME = ID + FEATURES
+# MODEL_API_URL = "http://127.0.0.1:8000/predict"
+# DB_API_URL = "http://127.0.0.1:8000/past-predictions"
 
 
 def to_str(df)-> str:
@@ -58,7 +59,7 @@ def add_prediction_column_to_df(df, prediction_result):
 
 def callmodel(df):
     df_str = to_str(df)
-    response = requests.post(MODEL_API_URL, json={"source": 'webapp', "df":df_str})
+    response = requests.post(MODEL_API_ENDPOINT, json={"source": 'webapp', "df":df_str})
     if response.status_code == 200:
         result = response.json()['pred']
         st.success("Done!")

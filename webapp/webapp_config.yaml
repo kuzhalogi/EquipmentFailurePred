@@ -1,0 +1,13 @@
+api:
+  predict_endpoint: "${MODEL_API_ENDPOINT}"
+  past_predictions_endpoint: "${DB_API_ENDPOINT}"
+
+
+features:
+  id: ["Product ID"]
+  numerical: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"]
+  ordinal: ["Type"]
+  target: ["Target"]
+  column_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]
+  fetch_order: ["Product ID", "Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type", "date", "source"]
+  only_features_columns: ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", "Type"]
