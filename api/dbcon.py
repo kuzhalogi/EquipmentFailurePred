@@ -29,12 +29,12 @@ def insert_predictions(df):
         print(f"Error inserting predictions: {e}")    
 
 
-def insert_failure_modes(df):
+def insert_probability(df):
     """Insert failure mode records into the database safely and efficiently."""
     try:
-        df.to_sql(FAILURE_MODE_TABLE, DATABASE_ENGINE, if_exists="append", index=False, method="multi")
+        df.to_sql(PROBABILITY_TABLE, DATABASE_ENGINE, if_exists="append", index=False, method="multi")
 
-        print(f"Successfully inserted {len(df)} rows into {FAILURE_MODE_TABLE}.")
+        print(f"Successfully inserted {len(df)} rows into {PROBABILITY_TABLE}.")
     except Exception as e:
         print(f"Error inserting failure modes: {e}")
 

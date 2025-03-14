@@ -1,10 +1,10 @@
+import joblib
+import numpy as np
+import pandas as pd
+from equipfailpred.model_config import MODEL_PATH
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
-import joblib
-import pandas as pd
-import numpy as np
-from equipfailpred.model_config import MODEL_PATH
-from equipfailpred.preprocess import preprocessor, predict,to_oned
+from equipfailpred.preprocess import preprocessor, predict
 from equipfailpred.preprocess import compute_accuracy, selected_split
 
 
@@ -45,9 +45,7 @@ def model_train(data: pd.DataFrame) -> pd.DataFrame:
     """
     X_train, X_test, y_train, y_test = selected_split(data)
     X_train_processed = preprocessor(X_train, True)
-    # y_flaten = to_oned(y_train)
     y_train_flattened = y_train.values  
-    # model_fit(X_train_processed, y_flaten)
     model_fit(X_train_processed, y_train_flattened)
     return X_test, y_test
 
@@ -68,10 +66,8 @@ def model_eval(X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
         A dictionary containing accuracy, precision, recall, and AUC scores.
     """
     X_test_processed = preprocessor(X_test, False)
-    predictions_test = predict(X_test_processed)
-    # y_flaten = to_oned(y_test)
+    predictions_test, _ = predict(X_test_processed) # ignoring the prediction probability
     y_test_flattened = y_test.values  
-    # scores = compute_accuracy(y_flaten, predictions_test)
     scores = compute_accuracy(y_test_flattened, predictions_test)
     return scores
 

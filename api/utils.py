@@ -11,40 +11,45 @@ from api_config import *
 #     "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]", 
 #     "Type"
 # ]
+# target: ['Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']
 
 
-def ar_tostr(data):
+def ar_tostr(data)-> str:
     data_list = data.tolist()
     json_string = json.dumps(data_list)
     return json_string
 
-
-def to_df(json_string: str)-> pd.DataFrame:
+def strto_df(json_string: str)-> pd.DataFrame:
     json_data = json.loads(json_string)
     json_data_io = StringIO(json_data)
     df = pd.read_json(json_data_io)
     return df
 
-
-def to_str(df)-> str:
+def dfto_str(df)-> str:
     json_data = df.to_json(orient='records')
     json_string = json.dumps(json_data)
     return json_string
 
-    
-def to_ar(json_str: str):
+def strto_ar(json_str: str):
     json_list = json.loads(json_str)
     arr = np.array(json_list)
     return arr
 
+def fillter_prediction_proba(probabilities: list):
+    """Fillters only the positive class probabilities."""
+    probabilities_t = [list(row) for row in zip(*probabilities)]
+    probabilities_t_arr = np.array(probabilities_t)
+    filtered_proba = probabilities_t_arr[:, :, 1]
+    filtered_proba_df = pd.DataFrame(filtered_proba)
+    return filtered_proba_df
 
-def format_predictions(df, predictions, probabilities, source):
+def format_predictions(df, predictions, source):
     """Format predictions DataFrame before inserting into the database."""
     df = df[COLUMN_ORDER].copy()
-    df['Predictions'] = predictions
-    df['failure_probability'] = probabilities[:, 1]  
+    pred_df = pd.DataFrame(predictions, columns=TARGET)
+    df = pd.concat([df, pred_df],axis=1)  
     current_date = datetime.datetime.now()
-    df['date'] = current_date.strftime("%Y-%m-%d %H:%M:%S") 
+    df['date'] = current_date.strftime("%Y-%m-%d %H:%M:%S")
     df['source'] = source
 
     return df.rename(columns={
@@ -55,9 +60,13 @@ def format_predictions(df, predictions, probabilities, source):
         'Torque [Nm]': 'torque_nm',
         'Tool wear [min]': 'tool_wear_min',
         'Type': 'type',
-        'Predictions': 'prediction'
+        'Machine failure':'machine_failure',
+        'TWF':'twf',
+        'HDF':'hdf',
+        'PWF':'pwf',
+        'OSF':'osf',
+        'RNF':'rnf'
     })
-
 
 def detect_failure_modes(df):
     """Detect failure modes and return a DataFrame with flags for each product_id."""

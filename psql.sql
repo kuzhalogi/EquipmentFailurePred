@@ -7,7 +7,12 @@ CREATE TABLE prediction (
     torque_nm DOUBLE PRECISION,  
     tool_wear_min INTEGER,  
     type VARCHAR,
-    prediction INTEGER,
+    machine_failure INTEGER,
+    twf BOOLEAN DEFAULT FALSE,
+    hdf BOOLEAN DEFAULT FALSE,
+    pwf BOOLEAN DEFAULT FALSE,
+    osf BOOLEAN DEFAULT FALSE,
+    rnf BOOLEAN DEFAULT FALSE,
     failure_probability DOUBLE PRECISION,  
     date TIMESTAMP,         
     source VARCHAR
@@ -36,13 +41,18 @@ CREATE TABLE failed_columns (
     failure_count INTEGER NOT NULL  -- Number of failures in the column
 );
 
-CREATE TABLE failure_modes (
-    product_id VARCHAR PRIMARY KEY,
-    twf BOOLEAN DEFAULT FALSE,
-    hdf BOOLEAN DEFAULT FALSE,
-    pwf BOOLEAN DEFAULT FALSE,
-    osf BOOLEAN DEFAULT FALSE
+CREATE TABLE probability (
+    id SERIAL PRIMARY KEY,
+    prediction_id INTEGER REFERENCES prediction(id) ON DELETE CASCADE,
+    machine_failure DOUBLE PRECISION,  
+    twf DOUBLE PRECISION,  
+    hdf DOUBLE PRECISION,  
+    pwf DOUBLE PRECISION,  
+    osf DOUBLE PRECISION,  
+    rnf DOUBLE PRECISION,  
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 INSERT INTO prediction (

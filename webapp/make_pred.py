@@ -28,15 +28,8 @@ def single_prediction():
     st.write(df)
     if st.button("Predict Single Sample"):
         result = callmodel(df)
-        if result == '1':
-            machine_status = "Fail"
-            st.write(f"{machine_status}")
-        elif result == '0':
-            machine_status = "Pass"
-            st.write(f"{machine_status}")
         final_df = add_prediction_column_to_df(df,result)
         st.write(final_df)
-            
 
 def multi_predictions():
     st.title('Predict tool failure')
@@ -57,7 +50,6 @@ def multi_predictions():
             st.write(final_df)
         else:
             st.error('File not detected, Please upload a valid .csv file')
-
 
 def manual_pred():
     userpick=st.radio(label='Pick', options=['Single Prediction','CSV file'])

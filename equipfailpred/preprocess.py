@@ -1,10 +1,10 @@
-import pandas as pd
-import numpy as np
 import joblib
+import numpy as np
+import pandas as pd
+from equipfailpred.model_config import *
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score
-from equipfailpred.model_config import *
  
 def selected_split(data: pd.DataFrame) -> pd.DataFrame:
     """
@@ -84,8 +84,8 @@ def compute_accuracy(y_test: pd.DataFrame, y_pred:pd.DataFrame)-> dict:
     Compute classification metrics.
     """
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    auc = roc_auc_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='macro')
+    recall = recall_score(y_test, y_pred, average='macro')
+    auc = roc_auc_score(y_test, y_pred, average='macro')
     scores = {'Accuracy':accuracy, 'Precision':precision, 'Recall':recall, 'Auc':auc}
     return scores
