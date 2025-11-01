@@ -257,6 +257,4 @@ airflow scheduler
 
 ## Acknowledgments
 
-I would like to express my gratitude to my professor, [**Alaa BAKHTI**](https://www.linkedin.com/in/alaabakhti/), for providing the initial idea and guidance for this academic project. Their insights and support were instrumental in shaping the direction of this work. While I have expanded and tweaked the project to include additional features and improvements, the foundational concept was inspired by their vision.
-
-Additionally, I would like to acknowledge the original authors of the dataset and the various open-source tools and libraries that made this project possible. **Special thanks to the communities behind Streamlit, FastAPI, PostgreSQL, Airflow, Great Expectations, TensorFlow Data Validation, and Grafana for their invaluable contributions to the development of this application.**
+I would like to express my gratitude to my professor, [**Alaa BAKHTI**](https://www.linkedin.com/in/alaabakhti/), for providing the initial idea and guidance for this project. Their insights and support were instrumental in shaping the direction of this work. While I have expanded and tweaked the project to include additional features and improvements, the foundational concept was inspired by their vision.
