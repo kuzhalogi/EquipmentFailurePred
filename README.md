@@ -1,6 +1,6 @@
 # Equipment Failure Prediction Application
 
-**A scalable machine learning pipeline for on-demand and scheduled predictions, featuring real-time data ingestion, quality validation, and monitoring all powered by Docker and AWS cloud technologies.**
+**A modular machine learning pipeline prototype for predicting equipment failures featuring automated data ingestion, validation, prediction, and monitoring, all containerized with Docker.**
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -15,14 +15,19 @@
 10. [Acknowledgments](#acknowledgments)
 
 ## Introduction
-A comprehensive machine learning pipeline designed to:
-- Provide **on-demand predictions** via a user-friendly web interface.
-- Automate **scheduled predictions**  
-- Ingest and validate data quality using **Great Expectations**.
-- Monitor data quality and model performance in real-time using **Grafana** dashboards.
-- Store predictions and data quality issues in a **PostgreSQL** database.
+This project is a modular, end-to-end machine learning prototype designed to predict equipment failures using realistic manufacturing data.
+It integrates multiple components data ingestion, validation, prediction, and monitoring into a single reproducible workflow.
 
-The pipeline is built with modularity and scalability in mind, leveraging **Docker** for containerization and **AWS** for cloud deployment. It serves as a robust solution for deploying machine learning models in production while ensuring data quality and performance monitoring.
+The system:
+- Provides on-demand predictions through a Streamlit web interface.
+- Automates scheduled batch predictions using Airflow.
+- Performs data quality checks with Great Expectations before prediction.
+- Tracks data integrity and model performance through Grafana dashboards.
+- Stores prediction outputs and validation metrics in a PostgreSQL database.
+
+While the pipeline simulates a production environment, it is intended as an academic and locally deployable prototype built to demonstrate scalable architecture, monitoring, and automation principles in a realistic yet contained setup.
+
+The pipeline is built for modularity and clarity, using Docker to orchestrate all services. It serves as a solid foundation for understanding how machine learning systems are structured, validated, and monitored in practice.
 
 ## Features
 - **User Interface**:
@@ -66,6 +71,7 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
 ## Technologies Used
 - **Programming Languages**:
   - Python (primary language for all components)
+  - Pandas, NumPy, Scikit-learn (Data processing and ML modeling)
 - **Frameworks/Libraries**:
   - Streamlit (User Interface)
   - FastAPI (Model API)
@@ -77,13 +83,10 @@ The pipeline is built with modularity and scalability in mind, leveraging **Dock
 - **Containerization**:
   - Docker (Containerization of all services)
   - Docker Compose (Orchestration of multi-container setup)
-- **Cloud Technologies**:
-  - AWS (EC2, S3, RDS, etc. for deployment and storage)
 - **Other Tools**:
   - Git (Version control)
   - GitHub (Repository hosting)
-  - Pandas, NumPy, Scikit-learn (Data processing and ML modeling)
-
+ 
 
 ## Project Structure
 ```bash
@@ -177,21 +180,6 @@ The model was evaluated using metrics such as accuracy, precision, recall, and A
 
 - **AUC: The model has an 80%** chance of distinguishing between failure and non-failure cases.
 
-## Limitations
-- The current model predicts only whether a failure occurs or not. It does not identify specific failure modes (e.g., Tool Wear Failure, Heat Dissipation Failure).
-- If multiple failure modes occur simultaneously, the model will not capture this complexity.
-- The dataset may have imbalanced classes, with some failure modes being rare, leading to biased predictions.
-- The model’s performance depends heavily on the quality and relevance of the input features.
-- The current pipeline may not be optimized for handling extremely high-velocity real-time data streams.
-- The model’s predictions may be difficult to interpret for non-technical stakeholders.
-
-## Future Enhancements
-- Extend the model to predict specific failure modes and handle machines with multiple failure modes.
-- Integrate more sophisticated data validation techniques, such as anomaly detection.
-- Implement a pipeline for automated model retraining as new data becomes available.
-- Enhance the monitoring system to provide real-time alerts for specific failure modes.
-
-
 ### **Model Deployment:**
 
 The trained model was serialized and packaged into an installable Python module.
@@ -272,6 +260,4 @@ airflow scheduler
 I would like to express my gratitude to my professor, [**Alaa BAKHTI**](https://www.linkedin.com/in/alaabakhti/), for providing the initial idea and guidance for this academic project. Their insights and support were instrumental in shaping the direction of this work. While I have expanded and tweaked the project to include additional features and improvements, the foundational concept was inspired by their vision.
 
 Additionally, I would like to acknowledge the original authors of the dataset and the various open-source tools and libraries that made this project possible. **Special thanks to the communities behind Streamlit, FastAPI, PostgreSQL, Airflow, Great Expectations, TensorFlow Data Validation, and Grafana for their invaluable contributions to the development of this application.**
-
-**Note:** The containerization process is currently a *work in progress*. While the application is functional and the core components are in place, I am actively working on finalizing the Docker setup and ensuring seamless deployment. Updates will be made to the repository as this process is completed.
 
